@@ -4,9 +4,11 @@ namespace BSR.Services;
 
 public class HomeService
 {
-    public List<Home> GetHomes()
+    private List<Home> _homes;
+
+    public HomeService()
     {
-        return new List<Home>
+        _homes = new List<Home>
         {
             new Home { Price = 300000, Address = "123 Main St", Area = 120 },
             new Home { Price = 450000, Address = "456 Elm St", Area = 150 },
@@ -21,5 +23,15 @@ public class HomeService
             new Home { Price = 310000, Address = "808 Willow St", Area = 135 },
             new Home { Price = 440000, Address = "909 Redwood St", Area = 158 }
         };
+    }
+
+    public List<Home> GetHomes()
+    {
+        return _homes;
+    }
+
+    public void AddHome(Home home)
+    {
+        _homes.Add(home);
     }
 }

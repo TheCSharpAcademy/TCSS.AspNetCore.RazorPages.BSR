@@ -1,0 +1,22 @@
+﻿@page
+@model BSR.Pages.AddHomeModel
+
+<h2>Add a New Home</h2>
+
+<form method="post">
+    <div>
+        <label>Price</label>
+        <input asp-for="NewHome.Price" />
+    </div>
+    <div>
+        <label>Address</label>
+        <input asp-for="NewHome.Address" />
+    </div>
+    <div>
+        <label>Square Meters</label>
+        <input asp-for="NewHome.Area" />
+    </div>
+    <input type="submit" value="Add Home" />
+</form>
+
+<a asp-page="/Index">Back to Home List</a>
