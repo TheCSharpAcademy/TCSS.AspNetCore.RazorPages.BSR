@@ -1,8 +1,31 @@
 ﻿@page
 @model BSR.Pages.IndexModel
 
-@{
-    Model.Message = Model.Message.ToUpper();
-}
+<h2>List of Homes</h2>
 
-<p>@Model.Message</p>
+@if (Model.Homes != null && Model.Homes.Count > 0)
+{
+    <table>
+        <thead>
+            <tr>
+                <th>Price</th>
+                <th>Address</th>
+                <th>Square Meters</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var home in Model.Homes)
+            {
+                <tr>
+                    <td>@home.Price.ToString("C")$</td>
+                    <td>@home.Address</td>
+                    <td>@home.Area</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>No homes available.</p>
+}
