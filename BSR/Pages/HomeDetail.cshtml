@@ -1,0 +1,19 @@
+﻿@page "{id:int}"
+@model BSR.Pages.HomeDetailModel
+
+<h2>Home Details</h2>
+
+<div>
+    <label>Price:</label>
+    <span>@Model.Home.Price</span>
+</div>
+<div>
+    <label>Address:</label>
+    <span>@Model.Home.Address</span>
+</div>
+<div>
+    <label>Square Meters:</label>
+    <span>@Model.Home.Area</span>
+</div>
+
+<a asp-page="/Index">Back to Home List</a>

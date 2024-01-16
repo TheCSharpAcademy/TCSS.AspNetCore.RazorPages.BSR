@@ -18,6 +18,7 @@
                 <th>Price</th>
                 <th>Address</th>
                 <th>Square Meters</th>
+                <th>View Home</th>
             </tr>
         </thead>
         <tbody>
@@ -27,6 +28,9 @@
                     <td>@home.Price.ToString("C")$</td>
                     <td>@home.Address</td>
                     <td>@home.Area</td>
+                    <td>
+                        <a asp-page="/HomeDetail" asp-route-id="@home.Id" class="btn btn-primary">View Details</a>
+                    </td>
                 </tr>
             }
         </tbody>
