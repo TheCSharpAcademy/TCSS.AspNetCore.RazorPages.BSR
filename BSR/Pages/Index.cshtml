@@ -1,42 +1,40 @@
 ﻿@page
 @model BSR.Pages.IndexModel
 
-<head>
-    <!-- other head elements -->
-    <link rel="stylesheet" href="~/css/site.css" />
-</head>
+<div class="index-div">
+    <a asp-page="/AddHome">Add Home</a>
 
-<a asp-page="/AddHome">Add Home</a>
+    <h2>List of Homes</h2>
 
-<h2>List of Homes</h2>
-
-@if (Model.Homes != null && Model.Homes.Count > 0)
-{
-    <table>
-        <thead>
-            <tr>
-                <th>Price</th>
-                <th>Address</th>
-                <th>Square Meters</th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var home in Model.Homes)
-            {
-                <tr class="@(home.Price > Model.ThresholdPrice ? "expensive-home" : "")">
-                    <td>@home.Price.ToString("C")$</td>
-                    <td>@home.Address</td>
-                    <td>@home.Area</td>
-                    <td>
-                        <a asp-page="/HomeDetail" asp-route-id="@home.Id" class="btn btn-primary">View Details</a>
-                    </td>
+    @if (Model.Homes != null && Model.Homes.Count > 0)
+    {
+        <table>
+            <thead>
+                <tr>
+                    <th>Price</th>
+                    <th>Address</th>
+                    <th>Square Meters</th>
+                    <th></th>
                 </tr>
-            }
-        </tbody>
-    </table>
-}
-else
-{
-    <p>No homes available.</p>
-}
+            </thead>
+            <tbody>
+                @foreach (var home in Model.Homes)
+                {
+                    <tr class="@(home.Price > Model.ThresholdPrice ? "expensive-home" : "")">
+                        <td>@home.Price.ToString("C")$</td>
+                        <td>@home.Address</td>
+                        <td>@home.Area</td>
+                        <td>
+                            <a asp-page="/HomeDetail" asp-route-id="@home.Id" class="btn btn-primary">View Details</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p>No homes available.</p>
+    }
+</div>
+
