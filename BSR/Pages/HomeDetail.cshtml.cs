@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace BSR.Pages;
 
+[IgnoreAntiforgeryToken(Order = 1001)]
 public class HomeDetailModel : PageModel
 {
     private readonly HomeService _homeService;
@@ -24,5 +25,12 @@ public class HomeDetailModel : PageModel
     private Home GetHomeById(int id)
     {
         return _homeService.GetHomeById(id);
+    }
+
+    public IActionResult OnPost(int id)
+    {
+        _homeService.DeleteHome(id);
+
+        return new OkResult();
     }
 }
