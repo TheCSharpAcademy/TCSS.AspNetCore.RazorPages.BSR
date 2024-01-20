@@ -7,7 +7,7 @@ function closeModal() {
 }
 
 function deleteHome(id) {
-    fetch('/HomeDetail/' + id, {
+    fetch('/HomeDetail?handler=Delete&id=' + id, {
         method: 'POST'
     })
         .then(response => {

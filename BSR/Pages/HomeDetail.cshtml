@@ -1,20 +1,24 @@
 ﻿@page "{id:int}"
 @model BSR.Pages.HomeDetailModel
 
-<h2>Home Details</h2>
+<h2>Update Home Details</h2>
 
-<div>
-    <label>Price:</label>
-    <span>@Model.Home.Price</span>
-</div>
-<div>
-    <label>Address:</label>
-    <span>@Model.Home.Address</span>
-</div>
-<div>
-    <label>Square Meters:</label>
-    <span>@Model.Home.Area</span>
-</div>
+<form method="post" asp-page-handler="Update">
+    <div>
+        <label for="price">Price:</label>
+        <input type="text" id="price" name="Price" value="@Model.Home.Price" />
+    </div>
+    <div>
+        <label for="address">Address:</label>
+        <input type="text" id="address" name="Address" value="@Model.Home.Address" />
+    </div>
+    <div>
+        <label for="area">Square Meters:</label>
+        <input type="text" id="area" name="Area" value="@Model.Home.Area" />
+    </div>
+
+    <button type="submit">Save Changes</button>
+</form>
 
 <button type="button" onclick="showConfirmation()">Delete</button>
 
@@ -25,4 +29,3 @@
 </div>
 
 <a asp-page="/Index">Back to Home List</a>
-

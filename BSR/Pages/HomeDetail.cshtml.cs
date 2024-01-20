@@ -14,6 +14,7 @@ public class HomeDetailModel : PageModel
         _homeService = homeService;
     }
 
+    [BindProperty]
     public Home Home { get; set; }
     public IActionResult OnGet(int id)
     {
@@ -27,7 +28,14 @@ public class HomeDetailModel : PageModel
         return _homeService.GetHomeById(id);
     }
 
-    public IActionResult OnPost(int id)
+    public IActionResult OnPostUpdate()
+    {
+        _homeService.UpdateHome(Home);
+
+        return RedirectToPage("/Index");
+    }
+
+    public IActionResult OnPostDelete(int id)
     {
         _homeService.DeleteHome(id);
 
