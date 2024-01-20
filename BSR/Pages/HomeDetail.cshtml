@@ -4,28 +4,28 @@
 <h2>Update Home Details</h2>
 
 <form method="post" asp-page-handler="Update">
-    <div>
-        <label for="price">Price:</label>
-        <input type="text" id="price" name="Price" value="@Model.Home.Price" />
+    <div class="form-group">
+        <label asp-for="Home.Price"></label>
+        <input asp-for="Home.Price" class="form-control" />
     </div>
-    <div>
-        <label for="address">Address:</label>
-        <input type="text" id="address" name="Address" value="@Model.Home.Address" />
+    <div class="form-group">
+        <label asp-for="Home.Address"></label>
+        <input asp-for="Home.Address" class="form-control" />
     </div>
-    <div>
-        <label for="area">Square Meters:</label>
-        <input type="text" id="area" name="Area" value="@Model.Home.Area" />
+    <div class="form-group">
+        <label asp-for="Home.Area"></label>
+        <input asp-for="Home.Area" class="form-control" />
     </div>
-
-    <button type="submit">Save Changes</button>
+    <input asp-for="Home.Id" type="hidden" />
+    <button type="submit" class="btn btn-primary">Save Changes</button>
 </form>
 
 <button type="button" onclick="showConfirmation()">Delete</button>
 
 <div id="deleteConfirmation" style="display:none;">
     <p>Are you sure you want to delete this record?</p>
-    <button onclick="deleteHome(@Model.Home.Id)">Confirm Delete</button>
-    <button onclick="closeConfirmation()">Cancel</button>
+    <button onclick="deleteHome(@Model.Home.Id)" class="btn btn-danger">Confirm Delete</button>
+    <button onclick="closeConfirmation()" class="btn btn-secondary">Cancel</button>
 </div>
 
-<a asp-page="/Index">Back to Home List</a>
+<a asp-page="/Index" class="btn btn-secondary">Back to Home List</a>
