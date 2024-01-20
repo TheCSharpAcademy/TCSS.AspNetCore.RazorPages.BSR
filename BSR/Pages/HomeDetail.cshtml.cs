@@ -29,10 +29,15 @@ public class HomeDetailModel : PageModel
 
     public IActionResult OnPostUpdate()
     {
-        _homeService.UpdateHome(Home);
+        if (!ModelState.IsValid)
+        {
+            return Page();
+        }
 
+        _homeService.UpdateHome(Home);
         return RedirectToPage("/Index");
     }
+
 
     public IActionResult OnPostDelete(int id)
     {

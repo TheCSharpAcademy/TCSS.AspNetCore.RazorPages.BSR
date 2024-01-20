@@ -22,7 +22,12 @@ public class AddHomeModel : PageModel
 
     public IActionResult OnPost()
     {
-        _homeService.AddHome(NewHome);
-        return RedirectToPage("Index"); 
+        if (ModelState.IsValid)
+        {
+            _homeService.AddHome(NewHome);
+            return RedirectToPage("Index");
+        }
+
+        return Page();
     }
 }

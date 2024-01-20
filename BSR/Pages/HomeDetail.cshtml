@@ -3,21 +3,24 @@
 
 <h2>Update Home Details</h2>
 
-<form method="post" asp-page-handler="Update">
-    <div>
-        <label for="price">Price:</label>
-        <input type="text" id="price" name="Price" value="@Model.Home.Price" />
+<form method="post" asp-page-handler="Update" id="updateHomeForm">
+    <div class="form-group">
+        <label asp-for="Home.Price"></label>
+        <input asp-for="Home.Price" class="form-control" />
+        <span asp-validation-for="Home.Price" class="text-danger"></span>
     </div>
-    <div>
-        <label for="address">Address:</label>
-        <input type="text" id="address" name="Address" value="@Model.Home.Address" />
+    <div class="form-group">
+        <label asp-for="Home.Address"></label>
+        <input asp-for="Home.Address" class="form-control" />
+        <span asp-validation-for="Home.Address" class="text-danger"></span>
     </div>
-    <div>
-        <label for="area">Square Meters:</label>
-        <input type="text" id="area" name="Area" value="@Model.Home.Area" />
+    <div class="form-group">
+        <label asp-for="Home.Area"></label>
+        <input asp-for="Home.Area" class="form-control" />
+        <span asp-validation-for="Home.Area" class="text-danger"></span>
     </div>
 
-    <button type="submit">Save Changes</button>
+    <button type="submit" class="btn btn-primary">Save Changes</button>
 </form>
 
 <button type="button" onclick="showConfirmation()">Delete</button>
