@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace BSR.Pages;
 
-[IgnoreAntiforgeryToken(Order = 1001)]
 public class HomeDetailModel : PageModel
 {
     private readonly HomeService _homeService;
