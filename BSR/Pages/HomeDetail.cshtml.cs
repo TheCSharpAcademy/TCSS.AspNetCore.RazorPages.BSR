@@ -15,6 +15,7 @@ public class HomeDetailModel : PageModel
 
     [BindProperty]
     public Home Home { get; set; }
+
     public IActionResult OnGet(int id)
     {
         Home = GetHomeById(id);

@@ -4,21 +4,20 @@
 <h2>Add a New Home</h2>
 
 <form method="post">
+    <div asp-validation-summary="All" class="text-danger"></div>
     <div>
         <label>Price</label>
         <input asp-for="NewHome.Price" />
-        <span asp-validation-for="NewHome.Price"></span> 
     </div>
     <div>
         <label>Address</label>
         <input asp-for="NewHome.Address" />
-        <span asp-validation-for="NewHome.Address"></span> 
     </div>
     <div>
         <label>Square Meters</label>
         <input asp-for="NewHome.Area" />
-        <span asp-validation-for="NewHome.Area"></span> 
     </div>
+
     <input type="submit" value="Add Home" />
 </form>
 

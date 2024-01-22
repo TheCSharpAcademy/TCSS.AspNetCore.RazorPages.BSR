@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using System.ComponentModel.DataAnnotations;
 
 namespace BSR;
 
@@ -17,5 +18,6 @@ public class Home
     [Range(1, int.MaxValue, ErrorMessage = "Area must be a positive value.")]
     public int Area { get; set; }
 
+    [ValidateNever]
     public string ImageUrl { get; set; }
 }
