@@ -16,4 +16,12 @@
     <span>@Model.Home.Area</span>
 </div>
 
+<button type="button" onclick="showConfirmation()">Delete</button>
+
+<div id="deleteConfirmation" style="display:none;">
+    <p>Are you sure you want to delete this record?</p>
+    <button onclick="deleteHome(@Model.Home.Id)">Confirm Delete</button>
+    <button onclick="closeConfirmation()">Cancel</button>
+</div>
+
 <a asp-page="/Index">Back to Home List</a>

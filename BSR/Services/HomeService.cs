@@ -38,4 +38,11 @@ public class HomeService
     {
         _homes.Add(home);
     }
+
+    public void DeleteHome(int id)
+    {
+        var home = _homes.FirstOrDefault(h => h.Id == id);
+
+        _homes.Remove(home);
+    }
 }
