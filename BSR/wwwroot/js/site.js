@@ -2,7 +2,7 @@
     document.getElementById('deleteConfirmation').style.display = 'block';
 }
 
-function closeModal() {
+function closeConfirmation() {
     document.getElementById('deleteConfirmation').style.display = 'none';
 }
 
