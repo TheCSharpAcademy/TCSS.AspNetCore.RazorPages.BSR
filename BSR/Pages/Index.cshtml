@@ -2,13 +2,13 @@
 @model BSR.Pages.IndexModel
 
 <div>
-    <a asp-page="/AddHome">Add Home</a>
+    <a class="btn btn-primary" asp-page="/AddHome">Add Home</a>
 
     <h2>List of Homes</h2>
 
     @if (Model.Homes != null && Model.Homes.Count > 0)
     {
-        <table>
+        <table class="table">
             <thead>
                 <tr>
                     <th>Price</th>
