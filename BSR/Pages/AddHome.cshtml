@@ -1,24 +1,25 @@
 ﻿@page
 @model BSR.Pages.AddHomeModel
 
+<a class="btn btn-outline-dark mt-3 mb-3" asp-page="/Index">Back to Home List</a>
+
 <h2>Add a New Home</h2>
 
-<form method="post">
+<form class="pb-3" method="post">
     <div asp-validation-summary="All" class="text-danger"></div>
-    <div>
+    <div class="form-group pb-3">
         <label>Price</label>
         <input asp-for="NewHome.Price" />
     </div>
-    <div>
+    <div class="form-group pb-3">
         <label>Address</label>
         <input asp-for="NewHome.Address" />
     </div>
-    <div>
+    <div class="form-group pb-3">
         <label>Square Meters</label>
         <input asp-for="NewHome.Area" />
     </div>
 
-    <input type="submit" value="Add Home" />
+    <input type="submit" class="btn btn-success" value="Add Home" />
 </form>
 
-<a asp-page="/Index">Back to Home List</a>
