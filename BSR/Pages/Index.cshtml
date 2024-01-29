@@ -2,6 +2,20 @@
 @model BSR.Pages.IndexModel
 
 <div>
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success mt-3" role="alert">
+            @TempData["SuccessMessage"]
+        </div>
+    }
+
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-danger mt-3" role="alert">
+            @TempData["ErrorMessage"]
+        </div>
+    }
+
     <a class="btn btn-success mt-3 mb-3" asp-page="/AddHome">Add Home</a>
 
     <h2>List of Homes</h2>

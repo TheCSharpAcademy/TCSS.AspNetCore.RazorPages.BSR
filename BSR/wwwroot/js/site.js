@@ -10,7 +10,7 @@ function deleteHome(id) {
     fetch('/HomeDetail?handler=Delete&id=' + id, {
         method: 'POST'
     })
-        .then(response => {
-             window.location.href = '/Index';
+        .then(response => {       
+                window.location.href = '/Index';
         })
 }

@@ -1,4 +1,5 @@
 using BSR.Services;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace BSR.Pages;
@@ -14,9 +15,17 @@ public class IndexModel : PageModel
         _homeService = homeService;
     }
 
-    public void OnGet()
+    public IActionResult OnGet()
     {
-        Homes = _homeService.GetHomes(); // Use HomeService to get the homes
-        ThresholdPrice = 400000;
+        try
+        {
+            Homes = _homeService.GetHomes();
+        }
+        catch (Exception ex)
+        {
+            TempData["ErrorMessage"] = $"Error fetching home from the database: {ex.Message}";
+        }
+
+        return Page();
     }
 }
