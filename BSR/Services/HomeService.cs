@@ -28,6 +28,16 @@ public class HomeService
         SeedHomes();
     }
 
+    public void SeedHomes()
+    {
+        if (!_context.Homes.Any())
+        {
+            _context.Homes.AddRange(_homes);
+        }
+
+        _context.SaveChanges();
+    }
+
     public List<Home> GetHomes()
     {
         return _context.Homes.ToList();
@@ -41,16 +51,6 @@ public class HomeService
     public void AddHome(Home home)
     {
         _context.Homes.Add(home);
-        _context.SaveChanges();
-    }
-
-    public void SeedHomes()
-    {
-        if (!_context.Homes.Any())
-        {
-            _context.Homes.AddRange(_homes);
-        }
-        
         _context.SaveChanges();
     }
 
