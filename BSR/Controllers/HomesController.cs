@@ -1,31 +1,31 @@
+﻿using BSR.Models;
 using BSR.Services;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace BSR.Pages;
+namespace BSR.Controllers;
 
-public class IndexModel : PageModel
+public class HomesController: Controller
 {
     private readonly HomeService _homeService;
     public List<Home> Homes { get; private set; }
-    public decimal ThresholdPrice { get; set; }
 
-    public IndexModel(HomeService homeService)
+    public HomesController(HomeService homeService)
     {
         _homeService = homeService;
     }
-
-    public IActionResult OnGet()
+    public IActionResult Index()
     {
+        var homesViewModel = new HomesViewModel();
+
         try
         {
-            Homes = _homeService.GetHomes();
+            homesViewModel.Homes = _homeService.GetHomes();
         }
         catch (Exception ex)
         {
             TempData["ErrorMessage"] = $"Error fetching home from the database: {ex.Message}";
         }
 
-        return Page();
+        return View(homesViewModel);
     }
 }

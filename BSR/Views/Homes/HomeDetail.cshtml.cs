@@ -2,7 +2,7 @@ using BSR.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace BSR.Pages;
+namespace BSR.Views.Homes;
 
 public class HomeDetailModel : PageModel
 {
