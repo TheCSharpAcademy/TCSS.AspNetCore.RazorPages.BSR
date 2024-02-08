@@ -82,4 +82,19 @@ public class HomesController: Controller
             return View("HomeDetailView", updatedHome);
         }
     }
+
+    public IActionResult Delete(int id)
+    {
+        try
+        {
+            _homeService.DeleteHome(id);
+            TempData["SuccessMessage"] = "Home deleted successfully!";
+            return new OkResult();
+        }
+        catch (Exception ex)
+        {
+            TempData["ErrorMessage"] = $"Error deleting home: {ex.Message}";
+            return BadRequest(new { message = ex.Message });
+        }
+    }
 }

@@ -7,10 +7,10 @@ function closeConfirmation() {
 }
 
 function deleteHome(id) {
-    fetch('/HomeDetail?handler=Delete&id=' + id, {
+    fetch(`/Homes/Delete/${id}`, {
         method: 'POST'
     })
         .then(response => {       
-                window.location.href = '/Index';
+                window.location.href = '/Homes/Index';
         })
 }
