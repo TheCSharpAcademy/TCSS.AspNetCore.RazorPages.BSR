@@ -1,5 +1,4 @@
-﻿@page
-@using BSR
+﻿@using BSR
 @model Home
 
 @if (TempData["ErrorMessage"] != null)
@@ -13,7 +12,7 @@
 
 <h2>Add a New Home</h2>
 
-<form class="pb-3" method="post">
+<form class="pb-3" asp-action="AddHome" asp-controller="Homes" method="post">
     <div asp-validation-summary="All" class="text-danger"></div>
     <div class="form-group pb-3 w-25">
         <label>Price</label>

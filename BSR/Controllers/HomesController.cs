@@ -7,7 +7,6 @@ namespace BSR.Controllers;
 public class HomesController: Controller
 {
     private readonly HomeService _homeService;
-    public List<Home> Homes { get; private set; }
 
     public HomesController(HomeService homeService)
     {
@@ -27,5 +26,32 @@ public class HomesController: Controller
         }
 
         return View(homesViewModel);
+    }
+
+    [HttpGet]
+    public IActionResult AddHomeView()
+    {
+        return View(); 
+    }
+
+    [HttpPost]
+    public IActionResult AddHome(Home newHome)
+    {
+        if (!ModelState.IsValid)
+        {
+            return View("AddHomeView", newHome); 
+        }
+
+        try
+        {
+            _homeService.AddHome(newHome);
+            TempData["SuccessMessage"] = "Home added successfully!";
+            return RedirectToAction("Index", "Homes"); 
+        }
+        catch (Exception ex)
+        {
+            TempData["ErrorMessage"] = $"Error adding home: {ex.Message}";
+            return View("AddHomeView", newHome); 
+        }
     }
 }
