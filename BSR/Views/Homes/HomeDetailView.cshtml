@@ -1,5 +1,4 @@
-﻿@page
-@using BSR
+﻿@using BSR
 @model Home
 
 @if (TempData["SuccessMessage"] != null)
@@ -16,11 +15,11 @@
     </div>
 }
 
-<a class="btn btn-outline-dark mt-3 mb-3" asp-page="/Index">Back to Home List</a>
+<a class="btn btn-outline-dark mt-3 mb-3" asp-action="Index" asp-controller="Homes">Back to Home List</a>
 
 <h2>Update Home Details</h2>
 
-<form class="pb-3" method="post" asp-page-handler="Update" id="updateHomeForm">
+<form class="pb-3" method="post" asp-action="Update" asp-controller="Homes" id="updateHomeForm">
     <div class="form-group pb-3">
         <label asp-for="Price"></label>
         <input asp-for="Price" class="form-control w-25" />

@@ -24,6 +24,6 @@ app.UseStaticFiles();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Homes}/{action=Index}");
+    pattern: "{controller=Homes}/{action=Index}/{id?}");
 
 app.Run();

@@ -54,4 +54,32 @@ public class HomesController: Controller
             return View("AddHomeView", newHome); 
         }
     }
+
+    [HttpGet]
+    public IActionResult HomeDetailView(int id)
+    {
+        var home = _homeService.GetHomeById(id);
+        return View(home);
+    }
+
+    [HttpPost]
+    public IActionResult Update(Home updatedHome)
+    {
+        if (!ModelState.IsValid)
+        {
+            return View("HomeDetailView", updatedHome);
+        }
+
+        try
+        {
+            _homeService.UpdateHome(updatedHome);
+            TempData["SuccessMessage"] = "Home updated successfully!";
+            return RedirectToAction("Index", "Homes");
+        }
+        catch (Exception ex)
+        {
+            TempData["ErrorMessage"] = $"Error updating home: {ex.Message}";
+            return View("HomeDetailView", updatedHome);
+        }
+    }
 }

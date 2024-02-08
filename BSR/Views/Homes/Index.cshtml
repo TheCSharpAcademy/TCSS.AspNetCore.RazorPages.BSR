@@ -34,7 +34,7 @@
                                 <p class="home-area">@($"{home.Area}") m<sup>2</sup></p>
                             </div>
                             <p class="home-price">@($"${home.Price}")</p>
-                            <a asp-page="/HomeDetail" asp-route-id="@home.Id" class="btn btn-outline-secondary btn-block">View Details</a>
+                            <a asp-controller="/Homes" asp-action="HomeDetailView" asp-route-id="@home.Id" class="btn btn-outline-secondary btn-block">View Details</a>
                         </div>
                     </div>
                 </div>
