@@ -12,21 +12,51 @@ public class HomesController: Controller
     {
         _homeService = homeService;
     }
-    public IActionResult Index()
+    public IActionResult Index(int? minPrice, int? maxPrice, int? minArea, int? maxArea)
     {
         var homesViewModel = new HomesViewModel();
 
         try
         {
-            homesViewModel.Homes = _homeService.GetHomes();
+            // Initially, get all homes
+            var homes = _homeService.GetHomes();
+
+            // Apply the price range filter if values are provided
+            if (minPrice.HasValue)
+            {
+                homes = homes.Where(h => h.Price >= minPrice.Value).ToList();
+            }
+            if (maxPrice.HasValue)
+            {
+                homes = homes.Where(h => h.Price <= maxPrice.Value).ToList();
+            }
+
+            // Apply the area range filter if values are provided
+            if (minArea.HasValue)
+            {
+                homes = homes.Where(h => h.Area >= minArea.Value).ToList();
+            }
+            if (maxArea.HasValue)
+            {
+                homes = homes.Where(h => h.Area <= maxArea.Value).ToList();
+            }
+
+            homesViewModel.Homes = homes;
         }
         catch (Exception ex)
         {
-            TempData["ErrorMessage"] = $"Error fetching home from the database: {ex.Message}";
+            TempData["ErrorMessage"] = $"Error fetching homes from the database: {ex.Message}";
         }
+
+        // Pass the filter values back to the view to retain them
+        homesViewModel.MinPrice = minPrice;
+        homesViewModel.MaxPrice = maxPrice;
+        homesViewModel.MinArea = minArea;
+        homesViewModel.MaxArea = maxArea;
 
         return View(homesViewModel);
     }
+
 
     [HttpGet]
     public IActionResult AddHomeView()
