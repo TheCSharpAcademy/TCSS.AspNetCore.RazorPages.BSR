@@ -1,18 +1,22 @@
 ﻿using BSR.Models;
 using BSR.Services;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 namespace BSR.Controllers;
 
 public class HomesController: Controller
 {
     private readonly HomeService _homeService;
+    private readonly AddressService _addressService;
 
-    public HomesController(HomeService homeService)
+    public HomesController(HomeService homeService, AddressService addressService)
     {
         _homeService = homeService;
+        _addressService = addressService;
     }
-    public IActionResult Index(int? minPrice, int? maxPrice, int? minArea, int? maxArea)
+
+    public async Task<IActionResult> Index(int? minPrice, int? maxPrice, int? minArea, int? maxArea)
     {
         var homesViewModel = new HomesViewModel();
 
@@ -56,7 +60,6 @@ public class HomesController: Controller
 
         return View(homesViewModel);
     }
-
 
     [HttpGet]
     public IActionResult AddHomeView()
@@ -126,5 +129,19 @@ public class HomesController: Controller
             TempData["ErrorMessage"] = $"Error deleting home: {ex.Message}";
             return BadRequest(new { message = ex.Message });
         }
+    }
+
+    [HttpGet]
+    public Task<IActionResult> GetStates()
+    {
+        var states = _addressService.GetAmericanStates();
+        return Ok(states);
+    }
+
+    [HttpPost]
+    public Task<IActionResult> GetCities(string state)
+    {
+        var cities = _addressService.GetCitiesInState(state);
+        return Ok(cities);
     }
 }

@@ -8,7 +8,9 @@ public class Home
     public int Id { get; set; }
 
     [Required(ErrorMessage = "The Address field is required.")]
-    public string Address { get; set; }
+    public string StreetAddress { get; set; }
+
+    public string City { get; set; }
 
     [Required(ErrorMessage = "The Price field is required.")]
     [Range(1, double.MaxValue, ErrorMessage = "Price must be a positive value.")]
