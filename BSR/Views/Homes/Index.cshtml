@@ -4,6 +4,13 @@
 <partial name="_FilterSection" model="Model" />
 
 <div>
+    @if (ViewBag.LoadTestTime != null)
+    {
+        <div class="alert alert-info" role="alert">
+            Load test simulation time: @ViewBag.LoadTestTime milliseconds
+        </div>
+    }
+
     <partial name="_AlertMessages" />
 
     <a class="btn btn-success mt-3 mb-3" asp-controller="Homes" asp-action="AddHomeView">Add Home</a>

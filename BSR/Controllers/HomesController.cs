@@ -1,11 +1,11 @@
 ﻿using BSR.Models;
 using BSR.Services;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
+using System.Diagnostics;
 
 namespace BSR.Controllers;
 
-public class HomesController: Controller
+public class HomesController : Controller
 {
     private readonly HomeService _homeService;
     private readonly AddressService _addressService;
@@ -46,6 +46,7 @@ public class HomesController: Controller
             }
 
             homesViewModel.Homes = homes;
+            ViewBag.LoadTestTime = SimulateLoadTest();
         }
         catch (Exception ex)
         {
@@ -61,10 +62,24 @@ public class HomesController: Controller
         return View(homesViewModel);
     }
 
+    private double SimulateLoadTest()
+    {
+        var stopwatch = new Stopwatch();
+        stopwatch.Start();
+
+        for (int i = 0; i < 10; i++)
+        {
+            GetStates(); // Assuming GetStates is a synchronous method for this example
+        }
+
+        stopwatch.Stop();
+        return stopwatch.Elapsed.TotalSeconds; // Return the elapsed time in milliseconds
+    }
+
     [HttpGet]
     public IActionResult AddHomeView()
     {
-        return View(); 
+        return View();
     }
 
     [HttpPost]
@@ -72,19 +87,19 @@ public class HomesController: Controller
     {
         if (!ModelState.IsValid)
         {
-            return View("AddHomeView", newHome); 
+            return View("AddHomeView", newHome);
         }
 
         try
         {
             _homeService.AddHome(newHome);
             TempData["SuccessMessage"] = "Home added successfully!";
-            return RedirectToAction("Index", "Homes"); 
+            return RedirectToAction("Index", "Homes");
         }
         catch (Exception ex)
         {
             TempData["ErrorMessage"] = $"Error adding home: {ex.Message}";
-            return View("AddHomeView", newHome); 
+            return View("AddHomeView", newHome);
         }
     }
 
@@ -132,16 +147,16 @@ public class HomesController: Controller
     }
 
     [HttpGet]
-    public Task<IActionResult> GetStates()
+    public IActionResult GetStates()
     {
         var states = _addressService.GetAmericanStates();
         return Ok(states);
     }
 
-    [HttpPost]
-    public Task<IActionResult> GetCities(string state)
-    {
-        var cities = _addressService.GetCitiesInState(state);
-        return Ok(cities);
-    }
+    //[HttpPost]
+    //public IActionResult GetCities(string state)
+    //{
+    //    var cities = _addressService.GetCitiesInState(state);
+    //    return Ok(cities);
+    //}
 }

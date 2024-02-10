@@ -11,7 +11,7 @@ public class AddressService
         _httpClientFactory = httpClientFactory;
     }
 
-    public async Task<List<string>> GetAmericanStates()
+    public List<string> GetAmericanStates()
     {
         var states = new List<string>();
 
@@ -23,10 +23,10 @@ public class AddressService
 
         try
         {
-            var response = await httpClient.SendAsync(request);
+            var response = httpClient.Send(request);
             if (response.IsSuccessStatusCode)
             {
-                var responseContent = await response.Content.ReadAsStringAsync();
+                var responseContent = response.Content.ReadAsStringAsync().Result;
                 var statesResponse = JsonConvert.DeserializeObject<StatesResponse>(responseContent); 
 
                 return statesResponse.Data.States.Select(state => state.Name).ToList();
@@ -44,36 +44,36 @@ public class AddressService
         }
     }
 
-    public async Task<List<string>> GetCitiesInState(string state)
-    {
-        var cities = new List<string>();
+    //public async Task<List<string>> GetCitiesInState(string state)
+    //{
+    //    var cities = new List<string>();
 
-        var httpClient = _httpClientFactory.CreateClient();
-        var request = new HttpRequestMessage(HttpMethod.Post, "https://countriesnow.space/api/v0.1/countries/state/cities")
-        {
-            Content = new StringContent(JsonConvert.SerializeObject(new { country = "United States", state = state }), System.Text.Encoding.UTF8, "application/json")
-        };
+    //    var httpClient = _httpClientFactory.CreateClient();
+    //    var request = new HttpRequestMessage(HttpMethod.Post, "https://countriesnow.space/api/v0.1/countries/state/cities")
+    //    {
+    //        Content = new StringContent(JsonConvert.SerializeObject(new { country = "United States", state = state }), System.Text.Encoding.UTF8, "application/json")
+    //    };
 
-        try
-        {
-            var response = await httpClient.SendAsync(request);
-            if (response.IsSuccessStatusCode)
-            {
-                var responseContent = await response.Content.ReadAsStringAsync();
-                var citiesResponse = JsonConvert.DeserializeObject<CitiesResponse>(responseContent);
+    //    try
+    //    {
+    //        var response = await httpClient.SendAsync(request);
+    //        if (response.IsSuccessStatusCode)
+    //        {
+    //            var responseContent = await response.Content.ReadAsStringAsync();
+    //            var citiesResponse = JsonConvert.DeserializeObject<CitiesResponse>(responseContent);
 
-                return citiesResponse.Data.Cities;
-            }
-            else
-            {
-                Console.WriteLine($"Failed to fetch cities: {response.ReasonPhrase}");
-                return cities;
-            }
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine($"Failed to fetch cities.");
-            return cities;
-        }
-    }
+    //            return citiesResponse.Data.Cities;
+    //        }
+    //        else
+    //        {
+    //            Console.WriteLine($"Failed to fetch cities: {response.ReasonPhrase}");
+    //            return cities;
+    //        }
+    //    }
+    //    catch (Exception ex)
+    //    {
+    //        Console.WriteLine($"Failed to fetch cities.");
+    //        return cities;
+    //    }
+    //}
 }
