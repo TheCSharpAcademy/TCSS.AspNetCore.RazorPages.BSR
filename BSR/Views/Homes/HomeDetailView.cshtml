@@ -1,19 +1,7 @@
 ﻿@using BSR
 @model Home
 
-@if (TempData["SuccessMessage"] != null)
-{
-    <div class="alert alert-success mt-3" role="alert">
-        @TempData["SuccessMessage"]
-    </div>
-}
-
-@if (TempData["ErrorMessage"] != null)
-{
-    <div class="alert alert-danger mt-3" role="alert">
-        @TempData["ErrorMessage"]
-    </div>
-}
+<partial name="_AlertMessages" />
 
 <a class="btn btn-outline-dark mt-3 mb-3" asp-action="Index" asp-controller="Homes">Back to Home List</a>
 
