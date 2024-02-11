@@ -1,6 +1,7 @@
 ﻿using BSR.Models;
 using BSR.Services;
 using Microsoft.AspNetCore.Mvc;
+using System.Diagnostics;
 
 namespace BSR.Controllers;
 
@@ -14,6 +15,9 @@ public class HomesController: Controller
     }
     public IActionResult Index(int? minPrice, int? maxPrice, int? minArea, int? maxArea)
     {
+        var stopwatch = new Stopwatch();
+        stopwatch.Start();
+
         var homesViewModel = new HomesViewModel();
 
         try
@@ -42,6 +46,7 @@ public class HomesController: Controller
             }
 
             homesViewModel.Homes = homes;
+            ViewBag.HomesCount = homes.Count;
         }
         catch (Exception ex)
         {
@@ -53,6 +58,10 @@ public class HomesController: Controller
         homesViewModel.MaxPrice = maxPrice;
         homesViewModel.MinArea = minArea;
         homesViewModel.MaxArea = maxArea;
+
+        stopwatch.Stop();
+
+        ViewBag.LoadTestTime = stopwatch.Elapsed.TotalSeconds.ToString("F4"); // Return the elapsed time in milliseconds
 
         return View(homesViewModel);
     }
