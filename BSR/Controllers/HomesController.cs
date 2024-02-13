@@ -8,11 +8,28 @@ namespace BSR.Controllers;
 public class HomesController: Controller
 {
     private readonly HomeService _homeService;
+    private readonly AddressService _addressService;
 
-    public HomesController(HomeService homeService)
+    public HomesController(HomeService homeService, AddressService addressService)
     {
         _homeService = homeService;
+        _addressService = addressService;
     }
+
+    [HttpPost]
+    public IActionResult GetCities([FromBody]CityRequest request)
+    {
+        var cities = _addressService.GetCitiesInState(request.State);
+        return Ok(cities);
+    }
+
+    [HttpGet]
+    public IActionResult GetStates()
+    {
+        var states = _addressService.GetAmericanStates();
+        return Ok(states);
+    }
+
     public IActionResult Index(int? minPrice, int? maxPrice, int? minArea, int? maxArea)
     {
         var stopwatch = new Stopwatch();
@@ -65,7 +82,6 @@ public class HomesController: Controller
 
         return View(homesViewModel);
     }
-
 
     [HttpGet]
     public IActionResult AddHomeView()
