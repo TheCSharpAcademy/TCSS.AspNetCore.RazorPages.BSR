@@ -1,5 +1,6 @@
 ﻿using BSR.Models;
 using Newtonsoft.Json;
+using System;
 
 namespace BSR.Services;
 
@@ -11,7 +12,7 @@ public class AddressService
         _httpClientFactory = httpClientFactory;
     }
 
-    public List<string> GetAmericanStates()
+    public async Task<List<string>> GetAmericanStates()
     {
         var states = new List<string>();
 
@@ -23,7 +24,7 @@ public class AddressService
 
         try
         {
-            var response = httpClient.Send(request);
+            var response = await httpClient.SendAsync(request);
             if (response.IsSuccessStatusCode)
             {
                 var responseContent = response.Content.ReadAsStringAsync().Result;
@@ -44,7 +45,7 @@ public class AddressService
         }
     }
 
-    public List<string> GetCitiesInState(string state)
+    public async Task<List<string>> GetCitiesInState(string state)
     {
         var cities = new List<string>();
 
@@ -56,7 +57,7 @@ public class AddressService
 
         try
         {
-            var response = httpClient.Send(request);
+            var response = await httpClient.SendAsync(request);
             if (response.IsSuccessStatusCode)
             {
                 var responseContent = response.Content.ReadAsStringAsync().Result;
@@ -75,5 +76,16 @@ public class AddressService
             Console.WriteLine($"Failed to fetch cities.");
             return cities;
         }
+    }
+
+    public async Task<List<string>> GetStatesWithDelayAsync(int index)
+    {
+        Console.WriteLine("Request " + index);
+
+        // Simulate a 2-second delay
+        await Task.Delay(2000);
+
+        // Return a mock list of states after the delay
+        return new List<string> { "State 1", "State 2", "State 3" };
     }
 }

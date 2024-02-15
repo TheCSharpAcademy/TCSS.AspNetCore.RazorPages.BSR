@@ -17,20 +17,20 @@ public class HomesController: Controller
     }
 
     [HttpPost]
-    public IActionResult GetCities([FromBody]CityRequest request)
+    public async Task<IActionResult> GetCities([FromBody]CityRequest request)
     {
-        var cities = _addressService.GetCitiesInState(request.State);
+        var cities = await _addressService.GetCitiesInState(request.State);
         return Ok(cities);
     }
 
     [HttpGet]
-    public IActionResult GetStates()
+    public async Task<IActionResult> GetStates()
     {
-        var states = _addressService.GetAmericanStates();
+        var states = await _addressService.GetAmericanStates();
         return Ok(states);
     }
 
-    public IActionResult Index(int? minPrice, int? maxPrice, int? minArea, int? maxArea)
+    public async Task<IActionResult> Index(int? minPrice, int? maxPrice, int? minArea, int? maxArea)
     {
         var stopwatch = new Stopwatch();
         stopwatch.Start();
