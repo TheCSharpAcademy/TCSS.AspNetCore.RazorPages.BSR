@@ -16,18 +16,10 @@ public class HomesController: Controller
         _addressService = addressService;
     }
 
-    [HttpPost]
-    public async Task<IActionResult> GetCities([FromBody]CityRequest request)
+    public async Task<IActionResult> GetCities(string state)
     {
-        var cities = await _addressService.GetCitiesInState(request.State);
+        var cities = await _addressService.GetCitiesInState(state);
         return Ok(cities);
-    }
-
-    [HttpGet]
-    public async Task<IActionResult> GetStates()
-    {
-        var states = await _addressService.GetAmericanStates();
-        return Ok(states);
     }
 
     public async Task<IActionResult> Index(int? minPrice, int? maxPrice, int? minArea, int? maxArea)
@@ -84,9 +76,17 @@ public class HomesController: Controller
     }
 
     [HttpGet]
-    public IActionResult AddHomeView()
+    public async Task<IActionResult> AddHomeView()
     {
-        return View(); 
+        var statesResult = await _addressService.GetAmericanStates();
+
+        var addHomeViewModel = new AddHomeViewModel
+        {
+            States = statesResult,
+            Cities = new List<string>()
+        };
+
+        return View(addHomeViewModel); 
     }
 
     [HttpPost]

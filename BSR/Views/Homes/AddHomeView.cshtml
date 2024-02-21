@@ -1,5 +1,5 @@
 ﻿@using BSR
-@model Home
+@model AddHomeViewModel
 
 <partial name="_AlertMessages" />
 
@@ -13,13 +13,52 @@
         <label>Price</label>
         <input asp-for="Price" class="form-control" />
     </div>
+
     <div class="form-group pb-3 w-100">
-        <label>Address</label>
-        <input asp-for="Address" class="form-control"/>
+        <label>Street Address</label>
+        <input asp-for="StreetAddress" class="form-control"/>
     </div>
+
+    <div class="form-group pb-3 w-25">
+        <label for="statesDropdown">State</label>
+        <select asp-for="State" class="form-control" id="statesDropdown">
+            <option value="">Select State</option>
+            @foreach (var state in Model.States)
+            {
+                <option value="@state">@state</option>
+            }
+        </select>
+    </div>
+
+    <div class="form-group pb-3 w-25">
+        <label for="citiesDropdown">City</label>
+        <select asp-for="City" class="form-control" id="citiesDropdown">
+            <option value="">Select City</option>
+            @foreach (var city in Model.Cities)
+            {
+                <option value="@city">@city</option>
+            }
+        </select>
+    </div>
+
     <div class="form-group pb-3 w-25">
         <label>Square Meters</label>
         <input asp-for="Area" class="form-control" />
+    </div>
+
+    <div class="form-group pb-3 w-25">
+        <label>Bedrooms</label>
+        <input asp-for="Bedrooms" class="form-control" type="number" min="1" max="5" />
+    </div>
+
+    <div class="form-group pb-3 w-25">
+        <label>Bathrooms</label>
+        <input asp-for="Bathrooms" class="form-control" type="number" min="1" max="5" />
+    </div>
+
+    <div class="form-group pb-3 w-25">
+        <label>Garage Spots</label>
+        <input asp-for="GarageSpots" class="form-control" type="number" min="1" max="5" />
     </div>
 
     <input type="submit" class="btn btn-success" value="Add Home" />

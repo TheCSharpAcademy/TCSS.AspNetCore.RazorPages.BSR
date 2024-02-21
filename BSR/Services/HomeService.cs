@@ -43,8 +43,11 @@ public class HomeService
                 {
                     Id = i,
                     Price = faker.Finance.Amount(200000, 700000), 
-                    Address = faker.Address.StreetAddress(), 
+                    StreetAddress = faker.Address.StreetAddress(), 
                     Area = faker.Random.Int(100, 200), 
+                    Bedrooms = faker.Random.Int(1,5),
+                    Bathrooms = faker.Random.Int(1,5),
+                    GarageSpots = faker.Random.Int(1,5),
                     ImageUrl = imageUrls[i % imageUrls.Count]
                 };
 
@@ -78,7 +81,7 @@ public class HomeService
         var home = _context.Homes.FirstOrDefault(h => h.Id == updatedHome.Id);
 
         home.Price = updatedHome.Price;
-        home.Address = updatedHome.Address;
+        home.StreetAddress = updatedHome.StreetAddress;
         home.Area = updatedHome.Area;
 
         _context.Homes.Update(home);
