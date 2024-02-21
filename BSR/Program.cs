@@ -19,7 +19,6 @@ using (var scope = app.Services.CreateScope())
     var dbContext = scope.ServiceProvider.GetRequiredService<HomeContext>();
     dbContext.Database.EnsureDeleted();
     dbContext.Database.EnsureCreated();
-
 }
 
 app.UseStaticFiles();

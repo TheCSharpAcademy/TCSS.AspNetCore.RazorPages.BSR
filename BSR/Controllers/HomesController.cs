@@ -5,7 +5,7 @@ using System.Diagnostics;
 
 namespace BSR.Controllers;
 
-public class HomesController: Controller
+public class HomesController : Controller
 {
     private readonly HomeService _homeService;
     private readonly AddressService _addressService;
@@ -36,7 +36,7 @@ public class HomesController: Controller
         return View(addHomeViewModel);
     }
 
-    public async Task<IActionResult> Index(int? minPrice, int? maxPrice, int? minArea, int? maxArea)
+    public async Task<IActionResult> Index(int? minPrice, int? maxPrice, int? minArea, int? maxArea, int pageNumber = 1, int pageSize = 10)
     {
         var stopwatch = new Stopwatch();
         stopwatch.Start();
@@ -68,8 +68,18 @@ public class HomesController: Controller
                 homes = homes.Where(h => h.Area <= maxArea.Value).ToList();
             }
 
+            int totalItems = homes.Count();
+            homes = homes.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList();
+
             homesViewModel.Homes = homes;
-            ViewBag.HomesCount = homes.Count;
+            homesViewModel.PaginationInfo = new PaginationInfo
+            {
+                CurrentPage = pageNumber,
+                ItemsPerPage = pageSize,
+                TotalItems = totalItems
+            };
+
+            ViewBag.HomesCount = totalItems;
         }
         catch (Exception ex)
         {
@@ -94,19 +104,19 @@ public class HomesController: Controller
     {
         if (!ModelState.IsValid)
         {
-            return View("AddHomeView", newHome); 
+            return View("AddHomeView", newHome);
         }
 
         try
         {
             _homeService.AddHome(newHome);
             TempData["SuccessMessage"] = "Home added successfully!";
-            return RedirectToAction("Index", "Homes"); 
+            return RedirectToAction("Index", "Homes");
         }
         catch (Exception ex)
         {
             TempData["ErrorMessage"] = $"Error adding home: {ex.Message}";
-            return View("AddHomeView", newHome); 
+            return View("AddHomeView", newHome);
         }
     }
 

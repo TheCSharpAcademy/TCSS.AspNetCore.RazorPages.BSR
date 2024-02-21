@@ -1,4 +1,5 @@
 ﻿using Bogus;
+using Bogus.DataSets;
 using BSR.Models;
 
 namespace BSR.Services;
@@ -43,7 +44,9 @@ public class HomeService
                 {
                     Id = i,
                     Price = faker.Finance.Amount(200000, 700000), 
-                    StreetAddress = faker.Address.StreetAddress(), 
+                    StreetAddress = faker.Address.StreetAddress(),
+                    State = faker.Address.State(),
+                    City = faker.Address.City(),
                     Area = faker.Random.Int(100, 200), 
                     Bedrooms = faker.Random.Int(1,5),
                     Bathrooms = faker.Random.Int(1,5),
