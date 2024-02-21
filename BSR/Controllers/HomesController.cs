@@ -22,6 +22,20 @@ public class HomesController: Controller
         return Ok(cities);
     }
 
+    [HttpGet]
+    public async Task<IActionResult> AddHomeView()
+    {
+        var statesResult = await _addressService.GetAmericanStates();
+
+        var addHomeViewModel = new AddHomeViewModel
+        {
+            States = statesResult,
+            Cities = new List<string>()
+        };
+
+        return View(addHomeViewModel);
+    }
+
     public async Task<IActionResult> Index(int? minPrice, int? maxPrice, int? minArea, int? maxArea)
     {
         var stopwatch = new Stopwatch();
@@ -73,20 +87,6 @@ public class HomesController: Controller
         ViewBag.LoadTestTime = stopwatch.Elapsed.TotalSeconds.ToString("F4"); // Return the elapsed time in milliseconds
 
         return View(homesViewModel);
-    }
-
-    [HttpGet]
-    public async Task<IActionResult> AddHomeView()
-    {
-        var statesResult = await _addressService.GetAmericanStates();
-
-        var addHomeViewModel = new AddHomeViewModel
-        {
-            States = statesResult,
-            Cities = new List<string>()
-        };
-
-        return View(addHomeViewModel); 
     }
 
     [HttpPost]
