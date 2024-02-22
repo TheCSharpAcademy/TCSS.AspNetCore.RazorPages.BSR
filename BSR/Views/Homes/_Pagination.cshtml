@@ -11,35 +11,39 @@
                     Page @Model.PaginationInfo.CurrentPage of @Model.PaginationInfo.TotalPages
                 </h6>
             </div>
-            @if (Model.PaginationInfo.HasPreviousPage)
+
+            @if (@Model.PaginationInfo.TotalPages > 1)
             {
+                @if (Model.PaginationInfo.HasPreviousPage)
+                {
+                    <div class="col">
+                        <a href="@($"{queryString}1")">First</a>
+                        <a href="@($"{queryString}{Model.PaginationInfo.CurrentPage - 1}")">Previous</a>
+                    </div>
+                }
+                @if (Model.PaginationInfo.HasNextPage)
+                {
+                    <div class="col-1">
+                        <a class="btn btn-outline-dark" href="@($"{queryString}{Model.PaginationInfo.CurrentPage + 1}")">Next</a>
+                    </div>
+                }
+                @if (Model.PaginationInfo.HasNextPage)
+                {
+                    <div class="col-1">
+                        <a class="btn btn-outline-dark" href="@($"{queryString}{Model.PaginationInfo.TotalPages}")">Last</a>
+                    </div>
+                }
                 <div class="col">
-                    <a href="@($"{queryString}1")">First</a>
-                    <a href="@($"{queryString}{Model.PaginationInfo.CurrentPage - 1}")">Previous</a>
+                    <form asp-controller="Homes" asp-action="Index" method="get" class="d-inline">
+                        <input type="hidden" name="minPrice" value="@Model.MinPrice" />
+                        <input type="hidden" name="maxPrice" value="@Model.MaxPrice" />
+                        <input type="hidden" name="minArea" value="@Model.MinArea" />
+                        <input type="hidden" name="maxArea" value="@Model.MaxArea" />
+                        <input type="number" name="pageNumber" min="1" max="@Model.PaginationInfo.TotalPages" class="form-control d-inline" style="width: 70px;" />
+                        <button type="submit" class="btn btn-primary">Go</button>
+                    </form>
                 </div>
             }
-            <div class="col-1">
-                @if (Model.PaginationInfo.HasNextPage)
-                {
-                    <a class="btn btn-outline-dark" href="@($"{queryString}{Model.PaginationInfo.CurrentPage + 1}")">Next</a>
-                }
-            </div>
-            <div class="col-1">
-                @if (Model.PaginationInfo.HasNextPage)
-                {
-                    <a class="btn btn-outline-dark" href="@($"{queryString}{Model.PaginationInfo.TotalPages}")">Last</a>
-                }
-            </div>
-            <div class="col">
-                <form asp-controller="Homes" asp-action="Index" method="get" class="d-inline">
-                    <input type="hidden" name="minPrice" value="@Model.MinPrice" />
-                    <input type="hidden" name="maxPrice" value="@Model.MaxPrice" />
-                    <input type="hidden" name="minArea" value="@Model.MinArea" />
-                    <input type="hidden" name="maxArea" value="@Model.MaxArea" />
-                    <input type="number" name="pageNumber" min="1" max="@Model.PaginationInfo.TotalPages" class="form-control d-inline" style="width: 70px;" />
-                    <button type="submit" class="btn btn-primary">Go</button>
-                </form>
-            </div>
         </div>
     }
 </div>
