@@ -1,11 +1,6 @@
 ﻿@using BSR.Models
 @model HomesViewModel
 
-@{
-    var queryString = $"?minPrice={Model.MinPrice}&maxPrice={Model.MaxPrice}&minArea={Model.MinArea}&maxArea={Model.MaxArea}&pageNumber=";
-}
-
-
 <partial name="_FilterSection" model="Model" />
 
 <div class="pt-5">

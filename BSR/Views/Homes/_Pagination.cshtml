@@ -16,9 +16,11 @@
             {
                 @if (Model.PaginationInfo.HasPreviousPage)
                 {
-                    <div class="col">
-                        <a href="@($"{queryString}1")">First</a>
-                        <a href="@($"{queryString}{Model.PaginationInfo.CurrentPage - 1}")">Previous</a>
+                    <div class="col-1">
+                        <a class="btn btn-outline-dark" href="@($"{queryString}1")">First</a>
+                    </div>
+                    <div class="col-1">
+                        <a class="btn btn-outline-dark" href="@($"{queryString}{Model.PaginationInfo.CurrentPage - 1}")">Previous</a>
                     </div>
                 }
                 @if (Model.PaginationInfo.HasNextPage)

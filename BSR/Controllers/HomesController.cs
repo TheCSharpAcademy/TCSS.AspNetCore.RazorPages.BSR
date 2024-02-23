@@ -45,7 +45,6 @@ public class HomesController : Controller
 
         try
         {
-            // Initially, get all homes
             var homes = _homeService.GetHomes();
 
             // Apply the price range filter if values are provided
