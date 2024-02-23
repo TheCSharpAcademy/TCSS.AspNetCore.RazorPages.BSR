@@ -29,7 +29,21 @@
                                 <h5 class="card-title">@home.StreetAddress</h5>
                                 <p class="home-area">@($"{home.Area}") m<sup>2</sup></p>
                             </div>
+                            <div class="d-flex justify-content-between">
+                                <h3 class="card-title">@home.City, @home.State</h3>
+                            </div>
                             <p class="home-price">@($"${home.Price}")</p>
+                            <div class="d-flex justify-content-between align-items-center mt-auto">
+                                <div>
+                                    <img width="20" src="img/icons8-bed-90.png" /> @home.Bedrooms
+                                </div>
+                                <div>
+                                    <img width="20" src="img/icons8-shower-100.png" /> @home.Bathrooms
+                                </div>
+                                <div>
+                                    <img width="20" src="img/icons8-car-90.png" /> @home.GarageSpots
+                                </div>
+                            </div>
                             <a asp-controller="/Homes" asp-action="HomeDetailView" asp-route-id="@home.Id" class="btn btn-outline-secondary btn-block">View Details</a>
                         </div>
                     </div>
@@ -42,4 +56,3 @@
         <p>No homes available.</p>
     }
 </div>
-
