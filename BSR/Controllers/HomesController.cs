@@ -7,33 +7,51 @@ namespace BSR.Controllers;
 
 public class HomesController : Controller
 {
+    private readonly ILogger<HomesController> _logger; 
     private readonly HomeService _homeService;
     private readonly AddressService _addressService;
 
-    public HomesController(HomeService homeService, AddressService addressService)
+    public HomesController(ILogger<HomesController> logger, HomeService homeService, AddressService addressService)
     {
+        _logger = logger; 
         _homeService = homeService;
         _addressService = addressService;
     }
 
     public async Task<IActionResult> GetCities(string state)
     {
-        var cities = await _addressService.GetCitiesInState(state);
-        return Ok(cities);
+        try
+        {
+            var cities = await _addressService.GetCitiesInState(state);
+            return Ok(cities);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, $"Error occurred in GetCities action for state: {state}");
+            return StatusCode(500, "An error occurred while processing your request.");
+        }
     }
 
     [HttpGet]
     public async Task<IActionResult> AddHomeView()
     {
-        var statesResult = await _addressService.GetAmericanStates();
-
-        var addHomeViewModel = new AddHomeViewModel
+        try
         {
-            States = statesResult,
-            Cities = new List<string>()
-        };
+            var statesResult = await _addressService.GetAmericanStates();
 
-        return View(addHomeViewModel);
+            var addHomeViewModel = new AddHomeViewModel
+            {
+                States = statesResult,
+                Cities = new List<string>()
+            };
+
+            return View(addHomeViewModel);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error occurred while loading add home view");
+            return StatusCode(500, "An error occurred while processing your request.");
+        }
     }
 
     public async Task<IActionResult> Index(int? minPrice, int? maxPrice, int? minArea, int? maxArea, int pageNumber = 1, int pageSize = 10)
@@ -82,6 +100,7 @@ public class HomesController : Controller
         }
         catch (Exception ex)
         {
+            _logger.LogError(ex, $"Error fetching homes from the database: {ex.Message}");
             TempData["ErrorMessage"] = $"Error fetching homes from the database: {ex.Message}";
         }
 
@@ -94,6 +113,8 @@ public class HomesController : Controller
         stopwatch.Stop();
 
         ViewBag.LoadTestTime = stopwatch.Elapsed.TotalSeconds.ToString("F4"); // Return the elapsed time in milliseconds
+
+        _logger.LogWarning("Hipotetical warning");
 
         return View(homesViewModel);
     }
@@ -114,6 +135,7 @@ public class HomesController : Controller
         }
         catch (Exception ex)
         {
+            _logger.LogError(ex, $"Error fetching homes from the database: {ex.Message}");
             TempData["ErrorMessage"] = $"Error adding home: {ex.Message}";
             return View("AddHomeView", newHome);
         }
@@ -122,8 +144,16 @@ public class HomesController : Controller
     [HttpGet]
     public IActionResult HomeDetailView(int id)
     {
-        var home = _homeService.GetHomeById(id);
-        return View(home);
+        try
+        {
+            var home = _homeService.GetHomeById(id);
+            return View(home);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, $"Error fetching home details for ID: {id}");
+            return StatusCode(500, "An error occurred while processing your request.");
+        }
     }
 
     [HttpPost]
@@ -142,6 +172,7 @@ public class HomesController : Controller
         }
         catch (Exception ex)
         {
+            _logger.LogError(ex, $"Error fetching homes from the database: {ex.Message}");
             TempData["ErrorMessage"] = $"Error updating home: {ex.Message}";
             return View("HomeDetailView", updatedHome);
         }
@@ -157,6 +188,8 @@ public class HomesController : Controller
         }
         catch (Exception ex)
         {
+            _logger.LogError(ex, $"Error deleting home with ID: {id}");
+
             TempData["ErrorMessage"] = $"Error deleting home: {ex.Message}";
             return BadRequest(new { message = ex.Message });
         }

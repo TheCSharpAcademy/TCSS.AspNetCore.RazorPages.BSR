@@ -2,7 +2,7 @@
   "profiles": {
     "http": {
       "commandName": "Project",
-      "workingDirectory": "C:\\Pablo\\BSR\\BSR",
+      "workingDirectory": "C:\\Pablo\\TCSS.AspNetCore.RazorPages.BSR\\BSR\\",
       "launchBrowser": true,
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
