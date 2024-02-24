@@ -1,0 +1,61 @@
+﻿@using BSR.Models
+@model HomesViewModel
+
+<partial name="_FilterSection" model="Model" />
+
+<div class="pt-5">
+    @if (ViewBag.LoadTestTime != null)
+    {
+        <div class="alert alert-info" role="alert">
+            Load test simulation time: @ViewBag.LoadTestTime seconds
+        </div>
+    }
+    <partial name="_AlertMessages" />
+
+    <a class="btn btn-success mt-3 mb-3" asp-controller="Homes" asp-action="AddHomeView">Add Home</a>
+
+    <h2>@ViewBag.HomesCount homes found.</h2>
+
+    <partial name="_Pagination" model="Model" />
+
+    @if (Model.Homes != null && Model.Homes.Count > 0)
+    {
+        <div class="row g-4">
+            @foreach (var home in Model.Homes)
+            {
+                <div class="col-lg-4 col-md-6 col-sm-1">
+                    <div class="card">
+                        <img src="@home.ImageUrl" class="card-img-top" alt="...">
+                        <div class="card-body d-flex flex-column">
+                            <div class="d-flex justify-content-between">
+                                <h5 class="card-title">@home.StreetAddress</h5>
+                                <p class="home-area">@($"{home.Area}") m<sup>2</sup></p>
+                            </div>
+                            <div class="d-flex justify-content-between">
+                                <h3 class="card-title">@home.City, @home.State</h3>
+                            </div>
+                            <p class="home-price">@($"${home.Price}")</p>
+                            <div class="d-flex justify-content-between align-items-center mt-auto">
+                                <div>
+                                    <img width="20" src="img/icons8-bed-90.png" /> @home.Bedrooms
+                                </div>
+                                <div>
+                                    <img width="20" src="img/icons8-shower-100.png" /> @home.Bathrooms
+                                </div>
+                                <div>
+                                    <img width="20" src="img/icons8-car-90.png" /> @home.GarageSpots
+                                </div>
+                            </div>
+                            <a asp-controller="/Homes" asp-action="HomeDetailView" asp-route-id="@home.Id" class="btn btn-outline-secondary btn-block">View Details</a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        <p>No homes available.</p>
+    }
+</div>
+
