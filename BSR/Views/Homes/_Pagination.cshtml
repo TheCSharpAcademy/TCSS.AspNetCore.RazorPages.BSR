@@ -6,7 +6,7 @@
     @if (Model.PaginationInfo != null)
     {
         <div class="row w-100">
-            <div class="col-1">
+            <div class="col-1 d-flex justify-content-center">
                 <h6>
                     Page @Model.PaginationInfo.CurrentPage of @Model.PaginationInfo.TotalPages
                 </h6>
@@ -16,33 +16,33 @@
             {
                 @if (Model.PaginationInfo.HasPreviousPage)
                 {
-                    <div class="col-1">
+                    <div class="col-1 text-center">
                         <a class="btn btn-outline-dark" href="@($"{queryString}1")">First</a>
                     </div>
-                    <div class="col-1">
+                    <div class="col-1 text-center">
                         <a class="btn btn-outline-dark" href="@($"{queryString}{Model.PaginationInfo.CurrentPage - 1}")">Previous</a>
                     </div>
                 }
                 @if (Model.PaginationInfo.HasNextPage)
                 {
-                    <div class="col-1">
+                    <div class="col-1  text-center">
                         <a class="btn btn-outline-dark" href="@($"{queryString}{Model.PaginationInfo.CurrentPage + 1}")">Next</a>
                     </div>
                 }
                 @if (Model.PaginationInfo.HasNextPage)
                 {
-                    <div class="col-1">
+                    <div class="col-1 text-center">
                         <a class="btn btn-outline-dark" href="@($"{queryString}{Model.PaginationInfo.TotalPages}")">Last</a>
                     </div>
                 }
-                <div class="col">
+                <div class="col-2">
                     <form asp-controller="Homes" asp-action="Index" method="get" class="d-inline">
                         <input type="hidden" name="minPrice" value="@Model.MinPrice" />
                         <input type="hidden" name="maxPrice" value="@Model.MaxPrice" />
                         <input type="hidden" name="minArea" value="@Model.MinArea" />
                         <input type="hidden" name="maxArea" value="@Model.MaxArea" />
                         <input type="number" name="pageNumber" min="1" max="@Model.PaginationInfo.TotalPages" class="form-control d-inline" style="width: 70px;" />
-                        <button type="submit" class="btn btn-primary">Go</button>
+                        <button type="submit" class="btn btn-primary btn-pagination">Go</button>
                     </form>
                 </div>
             }
