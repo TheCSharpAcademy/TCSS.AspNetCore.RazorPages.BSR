@@ -54,7 +54,7 @@ public class HomesController : Controller
         }
     }
 
-    public async Task<IActionResult> Index(int? minPrice, int? maxPrice, int? minArea, int? maxArea, int pageNumber = 1, int pageSize = 10)
+    public async Task<IActionResult> Index(int? minPrice, int? maxPrice, int? minArea, int? maxArea, int? minBath, int? minCar, int? minBed, string? state, string? city, int pageNumber = 1, int pageSize = 10)
     {
         var stopwatch = new Stopwatch();
         stopwatch.Start();
@@ -63,31 +63,12 @@ public class HomesController : Controller
 
         try
         {
-            var homes = _homeService.GetHomes();
-
-            // Apply the price range filter if values are provided
-            if (minPrice.HasValue)
-            {
-                homes = homes.Where(h => h.Price >= minPrice.Value).ToList();
-            }
-            if (maxPrice.HasValue)
-            {
-                homes = homes.Where(h => h.Price <= maxPrice.Value).ToList();
-            }
-
-            // Apply the area range filter if values are provided
-            if (minArea.HasValue)
-            {
-                homes = homes.Where(h => h.Area >= minArea.Value).ToList();
-            }
-            if (maxArea.HasValue)
-            {
-                homes = homes.Where(h => h.Area <= maxArea.Value).ToList();
-            }
+            var homes = _homeService.GetHomes(minPrice, maxPrice, minArea, maxArea, minBath, minCar, minBed, state, city);
 
             int totalItems = homes.Count();
             homes = homes.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList();
 
+            homesViewModel.States = await _addressService.GetAmericanStates();
             homesViewModel.Homes = homes;
             homesViewModel.PaginationInfo = new PaginationInfo
             {
@@ -104,20 +85,24 @@ public class HomesController : Controller
             TempData["ErrorMessage"] = $"Error fetching homes from the database: {ex.Message}";
         }
 
-        // Pass the filter values back to the view to retain them
         homesViewModel.MinPrice = minPrice;
         homesViewModel.MaxPrice = maxPrice;
         homesViewModel.MinArea = minArea;
         homesViewModel.MaxArea = maxArea;
+        homesViewModel.MinBathrooms = minBath;
+        homesViewModel.MinGarage = minCar;
+        homesViewModel.MinBedrooms = minBed;
 
         stopwatch.Stop();
 
-        ViewBag.LoadTestTime = stopwatch.Elapsed.TotalSeconds.ToString("F4"); // Return the elapsed time in milliseconds
+        ViewBag.LoadTestTime = stopwatch.Elapsed.TotalSeconds.ToString("F4");
 
         _logger.LogWarning("Hipotetical warning");
 
         return View(homesViewModel);
     }
+
+
 
     [HttpPost]
     public IActionResult AddHome(Home newHome)

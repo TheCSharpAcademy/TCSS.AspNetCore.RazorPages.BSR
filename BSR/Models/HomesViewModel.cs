@@ -1,4 +1,6 @@
-﻿namespace BSR.Models
+﻿using Microsoft.Extensions.Diagnostics.HealthChecks;
+
+namespace BSR.Models
 {
     public class HomesViewModel
     {
@@ -7,6 +9,13 @@
         public int? MaxPrice { get; set; }
         public int? MinArea { get; set; }
         public int? MaxArea { get; set; }
+        public int? MinGarage { get; set; }
+        public int? MinBedrooms { get; set; }
+        public int? MinBathrooms { get; set; }
+        public List<string> States { get; set; }
+        public List<string> Cities { get; set; }
+        public string? City { get; set; }
+        public string? State { get; set; }
         public PaginationInfo PaginationInfo { get; set; }
     }
 
