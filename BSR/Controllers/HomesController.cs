@@ -92,6 +92,8 @@ public class HomesController : Controller
         homesViewModel.MinBathrooms = minBath;
         homesViewModel.MinGarage = minCar;
         homesViewModel.MinBedrooms = minBed;
+        homesViewModel.State = state;
+        homesViewModel.City = city;
 
         stopwatch.Stop();
 
