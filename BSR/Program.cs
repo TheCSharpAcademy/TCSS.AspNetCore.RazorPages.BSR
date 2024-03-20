@@ -1,5 +1,6 @@
 using BSR.Models;
 using BSR.Services;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
 
@@ -18,6 +19,10 @@ builder.Services.AddLogging(loggingBuilder =>
 });
 
 builder.Services.AddDbContext<HomeContext>(opt => opt.UseSqlite("Data Source=bsr.db"));
+
+builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
+    .AddEntityFrameworkStores<HomeContext>()
+    .AddDefaultTokenProviders();
 
 builder.Services.AddScoped<HomeService>();
 builder.Services.AddScoped<AddressService>();
@@ -41,6 +46,8 @@ using (var scope = app.Services.CreateScope())
 app.UseStaticFiles();
 
 app.UseRouting();
+
+app.UseAuthentication();
 
 app.UseEndpoints(endpoints =>
 {
