@@ -28,8 +28,8 @@ builder.Services.AddScoped<HomeService>();
 builder.Services.AddScoped<AddressService>();
 builder.Services.AddScoped<DataSeedService>();
 builder.Services.AddHttpClient();
-builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
+builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
 
