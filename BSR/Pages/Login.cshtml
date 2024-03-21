@@ -1,5 +1,5 @@
 ﻿@page
-@model BSR.Pages.RegisterModel
+@model LoginModel
 
 <div class="h-100">
     <div class="mask d-flex align-items-center h-100">
@@ -20,10 +20,11 @@
                                     <span asp-validation-for="Input.Password" class="text-danger"></span>
                                 </div>
                                 <div style="margin:10px">
-                                    <button id="register-submit" type="submit" class="w-100 btn btn-lg btn-primary">Register</button>
+                                    <button id="login-submit" type="submit" class="w-100 btn btn-lg btn-primary">Log in</button>
                                 </div>
-                                <div class="form-floating" style="margin:10px">Already have an account? <a href="Login">Log In</a></div>
+                                <div class="form-floating" style="margin:10px">Don't have an account? <a href="/Identity/Account/Register">Sign Up</a></div>
                             </form>
+
                         </div>
                     </div>
                 </div>
@@ -31,4 +32,3 @@
         </div>
     </div>
 </div>
-
