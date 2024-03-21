@@ -1,6 +1,7 @@
 using BSR.Models;
 using BSR.Services;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
 
@@ -28,8 +29,11 @@ builder.Services.AddScoped<HomeService>();
 builder.Services.AddScoped<AddressService>();
 builder.Services.AddScoped<DataSeedService>();
 builder.Services.AddHttpClient();
-builder.Services.AddRazorPages();
 builder.Services.AddControllersWithViews();
+builder.Services.AddRazorPages(options =>
+{
+    options.Conventions.ConfigureFilter(new IgnoreAntiforgeryTokenAttribute());
+});
 
 var app = builder.Build();
 
