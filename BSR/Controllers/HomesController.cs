@@ -1,10 +1,12 @@
 ﻿using BSR.Models;
 using BSR.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
 namespace BSR.Controllers;
 
+[Authorize]
 public class HomesController : Controller
 {
     private readonly ILogger<HomesController> _logger; 
@@ -54,7 +56,7 @@ public class HomesController : Controller
         }
     }
 
-    //modified 
+    [AllowAnonymous]
     public async Task<IActionResult> Index(int? minPrice, int? maxPrice, int? minArea, int? maxArea, int? minBath, int? minCar, int? minBed, string? state, string? city, int pageNumber = 1, int pageSize = 10)
     {
         var stopwatch = new Stopwatch();
@@ -64,13 +66,11 @@ public class HomesController : Controller
 
         try
         {
-            //modified
             var homes = _homeService.GetHomes(minPrice, maxPrice, minArea, maxArea, minBath, minCar, minBed, state, city);
 
             int totalItems = homes.Count();
             homes = homes.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList();
 
-            //new
             homesViewModel.States = await _addressService.GetAmericanStates();
             homesViewModel.Homes = homes;
             homesViewModel.PaginationInfo = new PaginationInfo
@@ -92,11 +92,11 @@ public class HomesController : Controller
         homesViewModel.MaxPrice = maxPrice;
         homesViewModel.MinArea = minArea;
         homesViewModel.MaxArea = maxArea;
-        homesViewModel.MinBathrooms = minBath; //new
-        homesViewModel.MinGarage = minCar; //new
-        homesViewModel.MinBedrooms = minBed;//new
-        homesViewModel.State = state;//new
-        homesViewModel.City = city;//new
+        homesViewModel.MinBathrooms = minBath; 
+        homesViewModel.MinGarage = minCar; 
+        homesViewModel.MinBedrooms = minBed;
+        homesViewModel.State = state;
+        homesViewModel.City = city;
 
         stopwatch.Stop();
 
