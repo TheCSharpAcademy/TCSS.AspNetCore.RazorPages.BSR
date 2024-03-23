@@ -1,10 +1,12 @@
 ﻿using BSR.Models;
 using BSR.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
 namespace BSR.Controllers;
 
+[Authorize]
 public class HomesController : Controller
 {
     private readonly ILogger<HomesController> _logger; 
@@ -103,8 +105,6 @@ public class HomesController : Controller
 
         return View(homesViewModel);
     }
-
-
 
     [HttpPost]
     public IActionResult AddHome(Home newHome)

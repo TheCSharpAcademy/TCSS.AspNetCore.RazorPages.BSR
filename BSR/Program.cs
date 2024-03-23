@@ -33,6 +33,13 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
     .AddEntityFrameworkStores<HomeContext>()
     .AddDefaultTokenProviders();
 
+builder.Services.ConfigureApplicationCookie(options =>
+{
+    options.LoginPath = "/Login";
+    options.Cookie.SecurePolicy = CookieSecurePolicy.Always; 
+    options.Cookie.HttpOnly = true; 
+});
+
 builder.Services.AddScoped<HomeService>();
 builder.Services.AddScoped<AddressService>();
 builder.Services.AddScoped<DataSeedService>();
@@ -45,10 +52,12 @@ builder.Services.AddRazorPages(options =>
 
 var app = builder.Build();
 
+app.UseHttpsRedirection();
+
 using (var scope = app.Services.CreateScope())
 {
     var dbContext = scope.ServiceProvider.GetRequiredService<HomeContext>();
-    dbContext.Database.EnsureDeleted();
+    //dbContext.Database.EnsureDeleted();
     dbContext.Database.EnsureCreated();
 
     var dataSeedService = scope.ServiceProvider.GetRequiredService<DataSeedService>();
@@ -60,6 +69,7 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthentication();
+app.UseAuthorization();
 
 app.UseEndpoints(endpoints =>
 {

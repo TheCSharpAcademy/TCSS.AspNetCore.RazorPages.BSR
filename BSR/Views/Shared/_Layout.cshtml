@@ -24,12 +24,23 @@
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="#">Home</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/Register">Register</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/Login">Login</a>
-                    </li>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <li class="nav-item">
+                            <form id="logoutForm" asp-page-handler="Logout" asp-page="/Logout" method="post" class="nav-link">
+                                <button type="submit" class="btn btn-link nav-link">Logout</button>
+                            </form>
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link" href="/Register">Register</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/Login">Login</a>
+                        </li>
+                    }
                 </ul>
             </div>
         </div>
