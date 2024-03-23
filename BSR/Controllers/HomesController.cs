@@ -56,6 +56,8 @@ public class HomesController : Controller
         }
     }
 
+    [AllowAnonymous]
+
     public async Task<IActionResult> Index(int? minPrice, int? maxPrice, int? minArea, int? maxArea, int? minBath, int? minCar, int? minBed, string? state, string? city, int pageNumber = 1, int pageSize = 10)
     {
         var stopwatch = new Stopwatch();

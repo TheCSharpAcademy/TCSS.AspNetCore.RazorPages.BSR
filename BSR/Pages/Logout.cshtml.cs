@@ -13,11 +13,6 @@ public class LogoutModel : PageModel
         _signInManager = signInManager;
     }
 
-    public IActionResult OnGet()
-    {
-        return Page(); 
-    }
-
     public async Task<IActionResult> OnPostAsync()
     {
         await _signInManager.SignOutAsync();
