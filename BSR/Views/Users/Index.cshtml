@@ -1,0 +1,31 @@
+﻿@using BSR.Models
+@model UsersViewModel
+
+<div class="pt-5">
+    <h2>@ViewBag.UsersCount users found.</h2>
+
+    @if (Model.Users != null && Model.Users.Count > 0)
+    {
+        <div class="row g-4">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Email</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var user in Model.Users)
+                    {
+                        <tr>
+                            <th scope="row">@user.Email</th>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+    else
+    {
+        <p>No users registered.</p>
+    }
+</div>

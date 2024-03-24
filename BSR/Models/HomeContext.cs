@@ -8,4 +8,5 @@ public class HomeContext : IdentityDbContext<ApplicationUser>
     public HomeContext(DbContextOptions<HomeContext> options) : base(options) { }
 
     public DbSet<Home> Homes { get; set; }
+    public DbSet<ApplicationUser> AspNetUsers { get; set; }
 }
