@@ -1,7 +1,5 @@
-﻿using Bogus;
-using BSR.Models;
+﻿using BSR.Models;
 using Microsoft.EntityFrameworkCore;
-using System.ComponentModel;
 
 namespace BSR.Services;
 

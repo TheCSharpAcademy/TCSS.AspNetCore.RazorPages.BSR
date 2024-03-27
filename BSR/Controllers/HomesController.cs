@@ -6,7 +6,7 @@ using System.Diagnostics;
 
 namespace BSR.Controllers;
 
-[Authorize]
+[Authorize(Roles = "Admin, Sales")]
 public class HomesController : Controller
 {
     private readonly ILogger<HomesController> _logger; 
