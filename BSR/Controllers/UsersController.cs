@@ -2,11 +2,10 @@
 using BSR.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Diagnostics;
 
 namespace BSR.Controllers;
 
-[Authorize]
+[Authorize(Roles = "Manager")]
 public class UsersController : Controller
 {
     private readonly ILogger<HomesController> _logger;
@@ -20,8 +19,7 @@ public class UsersController : Controller
 
     public async Task<IActionResult> Index()
     {
-        var usersViewModel = new UsersViewModel();
-        usersViewModel.Users = await _userService.GetUsers();
+        var usersViewModel =  await _userService.GetAllUsersWithRolesAsync();
 
         ViewBag.UsersCount = usersViewModel.Users.Count;
 

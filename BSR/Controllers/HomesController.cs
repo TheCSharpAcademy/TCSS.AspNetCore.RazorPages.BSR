@@ -107,6 +107,7 @@ public class HomesController : Controller
 
 
     [HttpPost]
+    [Authorize(Roles = "Manager,Sales")]
     public IActionResult AddHome(Home newHome)
     {
         if (!ModelState.IsValid)
@@ -128,6 +129,8 @@ public class HomesController : Controller
         }
     }
 
+    [HttpPost]
+    [Authorize(Roles = "Manager,Sales")]
     [HttpGet]
     public IActionResult HomeDetailView(int id)
     {

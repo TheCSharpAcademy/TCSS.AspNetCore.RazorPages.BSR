@@ -4,4 +4,7 @@ namespace BSR.Models;
 
 public class ApplicationUser : IdentityUser
 {
+    
 }
+
+

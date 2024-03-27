@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="Views\Users\UserDetailView.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Bogus" Version="35.4.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="8.0.1" />
@@ -16,6 +20,18 @@
     <PackageReference Include="Serilog" Version="3.1.1" />
     <PackageReference Include="Serilog.Sinks.Seq" Version="6.0.0" />
 	<PackageReference Include="Seq.Extensions.Logging" Version="8.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Views\Users\UserDetailView.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="Views\Users\UserDetailView.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Views\Users\UserDetailView.cshtml" />
   </ItemGroup>
 
 </Project>

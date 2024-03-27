@@ -10,11 +10,13 @@ public class RegisterModel : PageModel
 {
     private readonly SignInManager<ApplicationUser> _signInManager;
     private readonly UserManager<ApplicationUser> _userManager;
+    private readonly RoleManager<IdentityRole> _roleManager; 
 
-    public RegisterModel(SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager)
+    public RegisterModel(SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager)
     {
         _signInManager = signInManager;
         _userManager = userManager;
+        _roleManager = roleManager;
     }
 
     [BindProperty]
@@ -29,6 +31,7 @@ public class RegisterModel : PageModel
 
             if (result.Succeeded)
             {
+                await _userManager.AddToRoleAsync(identity, "Sales");
                 await _signInManager.SignInAsync(identity, isPersistent: false);
                 return LocalRedirect("~/");
             }
