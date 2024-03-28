@@ -19,8 +19,7 @@ public class UsersController : Controller
 
     public async Task<IActionResult> Index()
     {
-        var usersViewModel = new UsersViewModel();
-        usersViewModel.Users = await _userService.GetUsers();
+        var usersViewModel = await _userService.GetUsers();
 
         ViewBag.UsersCount = usersViewModel.Users.Count;
 

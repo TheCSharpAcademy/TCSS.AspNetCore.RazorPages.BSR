@@ -31,9 +31,12 @@
                                 <button type="submit" class="btn btn-link nav-link">Logout</button>
                             </form>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/Users">Admin</a>
-                        </li>
+                        @if (User.IsInRole("Admin")) 
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" href="/Users">Admin</a>
+                            </li>
+                        }
                     }
                     else
                     {

@@ -12,7 +12,10 @@
     }
     <partial name="_AlertMessages" />
 
-    <a class="btn btn-success mt-3 mb-3" asp-controller="Homes" asp-action="AddHomeView">Add Home</a>
+    @if (!User.IsInRole("User")) 
+    {
+        <a class="btn btn-success mt-3 mb-3" asp-controller="Homes" asp-action="AddHomeView">Add Home</a>
+    }
 
     <h2>@ViewBag.HomesCount homes found.</h2>
 
